@@ -1,19 +1,24 @@
-package com.api.games;
+package com.api.games.services;
 
 import com.api.games.entities.Game;
 import com.api.games.repositories.GameRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GameService {
-   @Autowired
-   private GameRepository gameRepository;
+   private final GameRepository gameRepository;
 
+   public GameService(GameRepository gameRepository){
+      this.gameRepository = gameRepository;
+   }
    public List<Game> findAll(){
-      List<Game> result = gameRepository.findAll();
-      return result;
+      return gameRepository.findAll();
+   }
+
+   public Optional<Game> findById(Long id){
+      return gameRepository.findById(id);
    }
 }
