@@ -3,6 +3,7 @@ package com.api.games.controllers;
 import com.api.games.dtos.GameDTO;
 import com.api.games.services.GameService;
 import com.api.games.entities.Game;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +23,7 @@ public class GameController {
    }
 
    @GetMapping
-   public ResponseEntity<List<GameDTO>> findAll(){
+   public ResponseEntity<Page<GameDTO>> findAll(){
       return ResponseEntity.status(HttpStatus.OK).body(gameService.findAll());
    }
 

@@ -23,4 +23,10 @@ public class GameDTO {
    public GameDTO(Game game) {
       BeanUtils.copyProperties(game, this);
    }
+
+   public Game ConvertToEntity(){
+      Game game = new Game();
+      BeanUtils.copyProperties(game, this);
+      return game;
+   }
 }

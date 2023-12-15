@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,11 +22,15 @@ public class GameService {
    public GameService(GameRepository gameRepository){
       this.gameRepository = gameRepository;
    }
-   public List<GameDTO> findAll(){
+   public Page<GameDTO> findAll(){
       Pageable pageable = PageRequest.of(0, 3, Sort.by("title"));
       Page<Game> games = gameRepository.findAll(pageable);
-      List<Game> gamesList = games.getContent();
-      return gamesList.stream().map(GameDTO::new).toList();
+      return games.map(new Function<Game, GameDTO>() {
+         @Override
+         public GameDTO apply(Game game) {
+            return new GameDTO(game);
+         }
+      });
    }
 
    public Optional<Game> findById(Long id){
